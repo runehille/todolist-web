@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component, NgModule } from '@angular/core';
+import { Component, NgModule, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { PollingService } from 'src/app/shared/data-access/polling.service';
 
 @Component({
   selector: 'app-project-list',
@@ -25,7 +26,7 @@ import { BehaviorSubject } from 'rxjs';
       </thead>
       <tbody>
         <tr
-          *ngFor="let item of todoitems | async"
+          *ngFor="let item of todoitems$ | async"
           class="hover:bg-gray-100 hover:cursor-pointer border-b-2 border-gray-200"
         >
           <td class="py-2 text-slate-600">{{ item.id }}</td>
@@ -210,16 +211,13 @@ export class ProjectListComponent {
     },
   ];
 
-  todoitems = new BehaviorSubject<any>([]);
+  todoitems$: Observable<any>;
 
-  constructor(private http: HttpClient) {}
-
-  ngOnInit(): void {
-    this.http
-      .get('https://todolistapi20230406231150.azurewebsites.net/todoitems')
-      .subscribe((result: any) => {
-        this.todoitems.next(result);
-      });
+  constructor(private pollingService: PollingService) {
+    this.todoitems$ = this.pollingService.pollEndpoint(
+      'https://todolistapi20230406231150.azurewebsites.net/todoitems',
+      5000
+    );
   }
 }
 
