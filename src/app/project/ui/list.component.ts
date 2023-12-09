@@ -1,27 +1,48 @@
 import { CommonModule } from '@angular/common';
 import { Component, NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { SidenavComponent } from './ui/sidenav.component';
-import {
-  ProjectListComponent,
-  ProjectListModule,
-} from 'src/app/project/ui/list.component';
+import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-project',
+  selector: 'app-project-list',
   template: `
-    <div class="flex h-full min-h-screen w-full">
-      <app-project-sidenav></app-project-sidenav>
-      <div
-        class="flex flex-col h-full min-h-screen  m-1 rounded-md bg-white p-8 px-20 space-y-4 flex-grow"
-      >
-        <router-outlet></router-outlet>
-      </div>
+    <div class="flex min-w-full justify-end space-x-2">
+      <button class="bg-slate-100 px-2 py-1 text rounded-md">Comments</button>
+      <button class="bg-slate-100 px-2 py-1 text rounded-md">Share</button>
+      <button class="bg-slate-100 px-2 py-1 text rounded-md">About</button>
     </div>
+    <table class=" bg-white min-w-full">
+      <thead class="border-b-2 border-gray-300">
+        <tr>
+          <th class="py-4 text-left" *ngFor="let item of listheader">
+            <div class="flex space-x-1">
+              <img src="{{ item.icon }}" alt="" />
+              <p class="text-slate-600">{{ item.name }}</p>
+            </div>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let item of list"
+          class="hover:bg-gray-100 hover:cursor-pointer border-b-2 border-gray-200"
+        >
+          <td class="py-2 text-slate-600">{{ item.key }}</td>
+          <td class="py-2">{{ item.title }}</td>
+          <td class="py-2">
+            <p class="bg-blue-300 text-blue-950 m-2 p-2 px-3 rounded-lg w-fit">
+              {{ item.status }}
+            </p>
+          </td>
+          <td class="py-2">{{ item.assignee }}</td>
+          <td class="py-2">{{ item.priority }}</td>
+          <td class="py-2">{{ item.type }}</td>
+        </tr>
+      </tbody>
+    </table>
   `,
-  styles: [''],
+  styles: [``],
 })
-export class ProjectPage {
+export class ProjectListComponent {
   listheader = [
     {
       name: 'Key',
@@ -189,8 +210,8 @@ export class ProjectPage {
 }
 
 @NgModule({
-  declarations: [ProjectPage],
-  exports: [ProjectPage],
-  imports: [CommonModule, RouterModule, SidenavComponent],
+  declarations: [ProjectListComponent],
+  imports: [CommonModule, FormsModule],
+  exports: [ProjectListComponent],
 })
-export class ProjectPageModule {}
+export class ProjectListModule {}
