@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-project-list',
@@ -23,10 +25,10 @@ import { FormsModule } from '@angular/forms';
       </thead>
       <tbody>
         <tr
-          *ngFor="let item of list"
+          *ngFor="let item of todoitems | async"
           class="hover:bg-gray-100 hover:cursor-pointer border-b-2 border-gray-200"
         >
-          <td class="py-2 text-slate-600">{{ item.key }}</td>
+          <td class="py-2 text-slate-600">{{ item.id }}</td>
           <td class="py-2">{{ item.title }}</td>
           <td class="py-2">
             <p class="bg-blue-300 text-blue-950 m-2 p-2 px-3 rounded-lg w-fit">
@@ -207,11 +209,23 @@ export class ProjectListComponent {
       type: 'Task',
     },
   ];
+
+  todoitems = new BehaviorSubject<any>([]);
+
+  constructor(private http: HttpClient) {}
+
+  ngOnInit(): void {
+    this.http
+      .get('https://todolistapi20230406231150.azurewebsites.net/todoitems')
+      .subscribe((result: any) => {
+        this.todoitems.next(result);
+      });
+  }
 }
 
 @NgModule({
   declarations: [ProjectListComponent],
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, HttpClientModule],
   exports: [ProjectListComponent],
 })
 export class ProjectListModule {}

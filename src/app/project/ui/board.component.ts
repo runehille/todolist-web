@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-project-board',
-  template: `Project Board Page Works!`,
+  template: ` Board works! `,
   styles: [''],
+  standalone: true,
 })
 export class ProjectBoardComponent {}

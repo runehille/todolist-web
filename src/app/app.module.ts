@@ -9,6 +9,7 @@ import { TopBarModule } from './shared/ui/top-bar.component';
 import { ProjectPage } from 'src/app/project/project.page';
 import { ProjectListComponent } from 'src/app/project/ui/list.component';
 import { ProjectBoardComponent } from 'src/app/project/ui/board.component';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
@@ -22,9 +23,10 @@ export class AppComponent {}
 
 @NgModule({
   declarations: [AppComponent],
-  providers: [],
+  providers: [HttpClient],
   bootstrap: [AppComponent],
   imports: [
+    HttpClientModule,
     BrowserModule,
     RouterModule.forRoot([
       {
