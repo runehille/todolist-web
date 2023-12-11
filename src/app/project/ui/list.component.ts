@@ -36,7 +36,7 @@ import { PollingService } from 'src/app/shared/data-access/polling.service';
               {{ item.status }}
             </p>
           </td>
-          <td class="py-2">{{ item.assignee }}</td>
+          <td class="py-2">{{ item.assignedTo }}</td>
           <td class="py-2">{{ item.priority }}</td>
           <td class="py-2">{{ item.type }}</td>
         </tr>
