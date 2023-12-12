@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, NgModule, Output } from '@angular/core';
-import { ModalService } from 'src/app/shared/utils/create-modal.service';
 import {
   FormBuilder,
   FormGroup,
@@ -110,13 +109,9 @@ import {
 })
 export class CreateModalComponent {
   @Output() closed = new EventEmitter<void>();
-  display$ = this.modalService.watch();
   issueForm: FormGroup = new FormGroup({});
 
-  constructor(
-    private modalService: ModalService,
-    private formBuilder: FormBuilder
-  ) {
+  constructor(private formBuilder: FormBuilder) {
     this.issueForm = this.formBuilder.group({
       project: ['frontend', Validators.required],
       issuetype: ['task', Validators.required],

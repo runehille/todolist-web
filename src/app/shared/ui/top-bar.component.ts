@@ -2,8 +2,6 @@ import { CommonModule } from '@angular/common';
 import { Component, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { MatDialog } from '@angular/material/dialog';
-import { ModalService } from 'src/app/shared/utils/create-modal.service';
 import { CreateModalModule } from './create-modal.component';
 
 @Component({
@@ -67,7 +65,7 @@ export class TopBarComponent {
   searchvalue: string = '';
   showModal: boolean = false;
 
-  constructor(private modalService: ModalService) {}
+  constructor() {}
 
   openModal() {
     this.showModal = true;
