@@ -2,6 +2,9 @@ import { CommonModule } from '@angular/common';
 import { Component, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { ModalService } from 'src/app/shared/utils/create-modal.service';
+import { CreateModalModule } from './create-modal.component';
 
 @Component({
   selector: 'app-top-bar',
@@ -20,6 +23,7 @@ import { RouterModule } from '@angular/router';
             <a href="#" class="hover:text-slate-400">People</a>
 
             <button
+              (click)="openModal()"
               class="p-2 px-4 text-white bg-slate-900 rounded-md hover:bg-slate-800"
             >
               Create
@@ -51,16 +55,32 @@ import { RouterModule } from '@angular/router';
         </div>
       </div>
     </nav>
+
+    <app-create-modal
+      *ngIf="showModal"
+      (closed)="closeModal()"
+    ></app-create-modal>
   `,
   styles: [``],
 })
 export class TopBarComponent {
   searchvalue: string = '';
+  showModal: boolean = false;
+
+  constructor(private modalService: ModalService) {}
+
+  openModal() {
+    this.showModal = true;
+  }
+
+  closeModal() {
+    this.showModal = false;
+  }
 }
 
 @NgModule({
   declarations: [TopBarComponent],
-  imports: [CommonModule, FormsModule, RouterModule],
   exports: [TopBarComponent],
+  imports: [CommonModule, FormsModule, RouterModule, CreateModalModule],
 })
 export class TopBarModule {}
