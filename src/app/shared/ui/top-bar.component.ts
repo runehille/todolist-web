@@ -11,18 +11,20 @@ import { CreateModalModule } from './create-modal.component';
       <div class="flex items-center justify-between">
         <div class="flex items-center justify-between">
           <div class="space-x-6 font-semibold">
-            <a class="text-4xl font-bold text-slate-800" href="#"> Todolist </a>
-            <a href="#" class="hover:text-slate-400 hover:border-b-2"
+            <a class="text-4xl font-bold text-slate-800" href="/"> Todolist </a>
+            <a class="hover:text-slate-400 bg- hover:cursor-not-allowed"
               >Your work</a
             >
             <a routerLink="/projects" class="hover:text-slate-400">Projects</a>
-            <a href="" class="hover:text-slate-400">Filters</a>
-            <a href="#" class="hover:text-slate-400">Dashboards</a>
-            <a href="#" class="hover:text-slate-400">People</a>
+            <a class="hover:text-slate-400 hover:cursor-not-allowed">Filters</a>
+            <a class="hover:text-slate-400 hover:cursor-not-allowed"
+              >Dashboards</a
+            >
+            <a class="hover:text-slate-400 hover:cursor-not-allowed">People</a>
 
             <button
               (click)="openModal()"
-              class="p-2 px-4 text-white bg-slate-900 rounded-md hover:bg-slate-800"
+              class="p-2 px-4 text-white bg-slate-900 rounded-md hover:bg-slate-700"
             >
               Create
             </button>
@@ -35,19 +37,19 @@ import { CreateModalModule } from './create-modal.component';
             [(ngModel)]="searchvalue"
             class="border-2 border-gray-300 rounded-md px-2 py-1 focus:outline-none focus:border-blue-400"
           />
-          <a href="#">
+          <a class="hover:cursor-not-allowed">
             <img src="assets/bell.svg" alt="" />
           </a>
-          <a href="#">
+          <a class="hover:cursor-not-allowed">
             <img src="assets/question.svg" alt="" />
           </a>
-          <a href="#">
+          <a class="hover:cursor-not-allowed">
             <img src="assets/settings.svg" alt="" />
           </a>
-          <a href="">
+          <a class="hover:cursor-not-allowed">
             <img src="" alt="" />
           </a>
-          <a href="">
+          <a class="hover:cursor-not-allowed">
             <img src="https://picsum.photos/35" alt="" class="rounded-full" />
           </a>
         </div>

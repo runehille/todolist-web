@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, NgModule, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { HttpClientModule } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { PollingService } from 'src/app/shared/data-access/polling.service';
 
 @Component({
