@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { PollingService } from 'src/app/shared/data-access/polling.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-project-list',
@@ -38,6 +39,7 @@ import { PollingService } from 'src/app/shared/data-access/polling.service';
       </thead>
       <tbody>
         <tr
+          (click)="navigateToDetails()"
           *ngFor="let item of todoitems$ | async"
           class="hover:bg-gray-100 hover:cursor-pointer border-b-2 border-gray-200"
         >
@@ -82,11 +84,15 @@ export class ProjectListComponent {
 
   todoitems$: Observable<any>;
 
-  constructor(private pollingService: PollingService) {
+  constructor(private pollingService: PollingService, private router: Router) {
     this.todoitems$ = this.pollingService.pollEndpoint(
       'https://todolistapi20230406231150.azurewebsites.net/todoitems',
       5000
     );
+  }
+
+  navigateToDetails() {
+    this.router.navigate(['projects/item']);
   }
 }
 

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { Component } from '@angular/core';
-import { RouterModule, RouterOutlet } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -10,6 +10,7 @@ import { ProjectPage } from 'src/app/project/project.component';
 import { ProjectListComponent } from 'src/app/project/ui/list.component';
 import { ProjectBoardComponent } from 'src/app/project/ui/board.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { TodoItemComponent } from 'src/app/project/ui/todoitem/todoitem.component';
 
 @Component({
   selector: 'app-root',
@@ -40,6 +41,10 @@ export class AppComponent {}
           {
             path: 'board',
             component: ProjectBoardComponent,
+          },
+          {
+            path: 'item',
+            component: TodoItemComponent,
           },
         ],
       },
