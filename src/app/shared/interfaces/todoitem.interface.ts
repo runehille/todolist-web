@@ -1,6 +1,4 @@
 export interface TodoItem {
-  //project: string;
-  //issuetype: string;
   title: string;
   description: string;
   priority: string;

@@ -8,6 +8,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { firstValueFrom } from 'rxjs';
+import { CreateItemService } from 'src/app/shared/data-access/create-item.service';
 import { TodoItem } from 'src/app/shared/interfaces/todoitem.interface';
 
 @Component({
@@ -115,7 +116,10 @@ export class CreateModalComponent {
   @Output() closed = new EventEmitter<void>();
   issueForm: FormGroup = new FormGroup({});
 
-  constructor(private formBuilder: FormBuilder, private http: HttpClient) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private createitemService: CreateItemService
+  ) {
     this.issueForm = this.formBuilder.group({
       project: ['frontend', Validators.required],
       issuetype: ['task', Validators.required],
@@ -146,18 +150,8 @@ export class CreateModalComponent {
         assignedTo: this.issueForm.get('assignedTo')?.value,
       };
 
-      try {
-        await firstValueFrom(
-          this.http.post(
-            'https://todolistapi20230406231150.azurewebsites.net/todoitems/create',
-            todoItem
-          )
-        );
-        console.log(this.issueForm.value);
-        this.closed.emit();
-      } catch (error) {
-        console.error(error);
-      }
+      this.createitemService.createItem(todoItem);
+      this.close();
     }
   };
 }

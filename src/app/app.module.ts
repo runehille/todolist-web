@@ -6,7 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TopBarModule } from './shared/ui/top-bar.component';
-import { ProjectPage } from 'src/app/project/project.page';
+import { ProjectPage } from 'src/app/project/project.component';
 import { ProjectListComponent } from 'src/app/project/ui/list.component';
 import { ProjectBoardComponent } from 'src/app/project/ui/board.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
@@ -46,7 +46,7 @@ export class AppComponent {}
       {
         path: '',
         loadChildren: () =>
-          import('./main/main.page').then((m) => m.MainPageModule),
+          import('./main/main.component').then((m) => m.MainPageModule),
         pathMatch: 'full',
       },
       {
