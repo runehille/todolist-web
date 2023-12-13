@@ -1,4 +1,5 @@
 import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 import { Component, EventEmitter, NgModule, Output } from '@angular/core';
 import {
   FormBuilder,
@@ -6,6 +7,8 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { firstValueFrom } from 'rxjs';
+import { TodoItem } from 'src/app/shared/interfaces/todoitem.interface';
 
 @Component({
   selector: 'app-create-modal',
@@ -112,12 +115,15 @@ export class CreateModalComponent {
   @Output() closed = new EventEmitter<void>();
   issueForm: FormGroup = new FormGroup({});
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, private http: HttpClient) {
     this.issueForm = this.formBuilder.group({
       project: ['frontend', Validators.required],
       issuetype: ['task', Validators.required],
       title: ['', Validators.required],
       description: ['', Validators.required],
+      priority: ['low'],
+      createdBy: ['Rune'],
+      assignedTo: ['Rune'],
     });
   }
 
@@ -129,13 +135,31 @@ export class CreateModalComponent {
     this.close();
   }
 
-  submitForm(event?: Event) {
+  submitForm = async (event?: Event) => {
     event?.preventDefault();
     if (this.issueForm.valid) {
-      console.log(this.issueForm.value);
-      this.closed.emit();
+      const todoItem: TodoItem = {
+        title: this.issueForm.get('title')?.value,
+        description: this.issueForm.get('description')?.value,
+        priority: this.issueForm.get('priority')?.value,
+        createdBy: this.issueForm.get('createdBy')?.value,
+        assignedTo: this.issueForm.get('assignedTo')?.value,
+      };
+
+      try {
+        await firstValueFrom(
+          this.http.post(
+            'https://todolistapi20230406231150.azurewebsites.net/todoitems/create',
+            todoItem
+          )
+        );
+        console.log(this.issueForm.value);
+        this.closed.emit();
+      } catch (error) {
+        console.error(error);
+      }
     }
-  }
+  };
 }
 
 @NgModule({
