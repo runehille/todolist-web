@@ -1,11 +1,12 @@
 import { Component, NgModule } from '@angular/core';
-import { TodoitemMainAreaComponent } from 'src/app/project/ui/todoitem/ui/main-area.component';
-import { TodoitemSideAreaComponent } from 'src/app/project/ui/todoitem/ui/side-area.component';
+import { FormsModule } from '@angular/forms';
+import { TodoitemMainAreaModule } from 'src/app/project/ui/todoitem/ui/main-area.component';
+import { TodoitemSideAreaModule } from 'src/app/project/ui/todoitem/ui/side-area.component';
 
 @Component({
   selector: 'app-todoitem',
   template: `
-    <div class="flex space-x-10">
+    <div class="flex space-x-20">
       <div class="w-3/5">
         <app-project-todoitem-main-area></app-project-todoitem-main-area>
       </div>
@@ -20,7 +21,7 @@ export class TodoItemComponent {}
 
 @NgModule({
   declarations: [TodoItemComponent],
-  imports: [TodoitemMainAreaComponent, TodoitemSideAreaComponent],
+  imports: [TodoitemMainAreaModule, TodoitemSideAreaModule, FormsModule],
   exports: [TodoItemComponent],
 })
 export class TodoItemModule {}

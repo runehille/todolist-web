@@ -11,7 +11,9 @@ import { CreateModalModule } from './create-modal.component';
       <div class="flex items-center justify-between">
         <div class="flex items-center justify-between">
           <div class="space-x-6 font-semibold">
-            <a class="text-4xl font-bold text-slate-800" href="/"> Todolist </a>
+            <a class="text-3xl font-bold text-slate-800" href="/">
+              Issue Tracker
+            </a>
             <a class="hover:text-slate-400 bg- hover:cursor-not-allowed"
               >Your work</a
             >
