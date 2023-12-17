@@ -12,4 +12,11 @@ export class PollingService {
   pollEndpoint(url: string, pollInterval: number): Observable<any> {
     return timer(0, pollInterval).pipe(switchMap(() => this.http.get(url)));
   }
+
+  getIssueById(id: string): Observable<any> {
+    return this.http.get(
+      'https://todolistapi20230406231150.azurewebsites.net/todoitems/details/' +
+        id
+    );
+  }
 }

@@ -39,7 +39,7 @@ import { Router } from '@angular/router';
       </thead>
       <tbody>
         <tr
-          (click)="navigateToDetails()"
+          (click)="navigateToDetails(item.id)"
           *ngFor="let item of todoitems$ | async"
           class="hover:bg-gray-100 hover:cursor-pointer border-b-2 border-gray-200"
         >
@@ -91,8 +91,8 @@ export class ProjectListComponent {
     );
   }
 
-  navigateToDetails() {
-    this.router.navigate(['projects/item']);
+  navigateToDetails(id: string) {
+    this.router.navigate(['projects/issue/' + id]);
   }
 }
 

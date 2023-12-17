@@ -5,6 +5,6 @@ export interface TodoItem {
   createdBy: string;
   assignedTo: string;
   status: string;
-  createdTimeStamp: string;
-  lastModifiedTimeStamp: string;
+  createdTimestamp: string;
+  lastModifiedTimestamp: string;
 }

@@ -1,10 +1,21 @@
-import { ChangeDetectionStrategy, Component, NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  NgModule,
+} from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { TodoItem } from 'src/app/shared/interfaces/todoitem.interface';
 
 @Component({
   selector: 'app-project-todoitem-side-area',
   template: `
-    <div class="flex flex-col h-96 border-slate-200 space-y-4">
+    <div
+      class="flex flex-col h-96 border-slate-200 space-y-4"
+      *ngIf="issue | async as issueData"
+    >
       <select
         name="status"
         id="status"
@@ -16,36 +27,36 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
         <option value="done">Done</option>
       </select>
 
-      <div class="flex flex-col border-2 p-2 border-slate-100 space-y-4">
-        <h2 class="text-lg font-medium border-b-2 border-slate-100">Details</h2>
+      <div class="flex flex-col border-2 p-4 border-slate-100 space-y-4">
+        <h2 class="text-lg font-medium border-b-2 border-slate-100 pb-2">
+          Details
+        </h2>
 
         <div class="flex flex-col space-y-6">
           <div class="flex ">
             <p class="w-1/4 ">Assignee</p>
-            <input type="text" [(ngModel)]="assignee" />
+            <input type="text" [(ngModel)]="issueData.assignedTo" />
           </div>
           <div class="flex ">
             <p class="w-1/4">Reporter</p>
-            <input type="reporter" [(ngModel)]="reporter" />
+            <input type="reporter" [(ngModel)]="issueData.createdBy" />
           </div>
           <div class="flex">
             <p class="w-1/4">Priority</p>
-            <input type="text" [(ngModel)]="priority" />
-          </div>
-          <div class="flex">
-            <p class="w-1/4">Labels</p>
-            <input type="text" [(ngModel)]="labels" />
+            <input type="text" [(ngModel)]="issueData.priority" />
           </div>
         </div>
       </div>
-      <div class="flex flex-col text-sm">
+      <div class="flex flex-col text-sm px-2">
         <div class="flex">
           <p class="w-1/5">Created</p>
-          <p>{{ createdTimeStamp }}</p>
+          <p>{{ issueData.createdTimestamp | date : 'short' : 'nb-NO' }}</p>
         </div>
         <div class="flex">
           <p class="w-1/5">Last modified</p>
-          <p>{{ lastModifiedTimeStamp }}</p>
+          <p>
+            {{ issueData.lastModifiedTimestamp | date : 'short' : 'nb-NO' }}
+          </p>
         </div>
       </div>
     </div>
@@ -54,30 +65,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TodoitemSideAreaComponent {
-  assignee: string = 'Unassigned';
-  reporter: string = 'Reporter';
-  priority: string = 'Low';
-  status: string = 'todo';
-  labels: string = '';
-  createdTimeStamp: string =
-    new Date('2022-12-15').toLocaleDateString() +
-    ' ' +
-    new Date().toLocaleTimeString('no-NO', {
-      hour: '2-digit',
-      minute: '2-digit',
-    });
-  lastModifiedTimeStamp: string =
-    new Date('2022-12-15').toLocaleDateString() +
-    ' ' +
-    new Date().toLocaleTimeString('no-NO', {
-      hour: '2-digit',
-      minute: '2-digit',
-    });
+  @Input() issue: Observable<TodoItem> | undefined;
 }
 
 @NgModule({
   declarations: [TodoitemSideAreaComponent],
-  imports: [FormsModule, ReactiveFormsModule],
+  imports: [FormsModule, ReactiveFormsModule, CommonModule],
   exports: [TodoitemSideAreaComponent],
 })
 export class TodoitemSideAreaModule {}

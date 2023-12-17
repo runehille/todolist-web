@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -11,6 +11,10 @@ import { ProjectListComponent } from 'src/app/project/ui/list.component';
 import { ProjectBoardComponent } from 'src/app/project/ui/board.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TodoItemComponent } from 'src/app/project/ui/todoitem/todoitem.component';
+import { registerLocaleData } from '@angular/common';
+import localeNb from '@angular/common/locales/nb';
+
+registerLocaleData(localeNb);
 
 @Component({
   selector: 'app-root',
@@ -24,7 +28,7 @@ export class AppComponent {}
 
 @NgModule({
   declarations: [AppComponent],
-  providers: [HttpClient],
+  providers: [HttpClient, { provide: LOCALE_ID, useValue: 'nb-NO' }],
   bootstrap: [AppComponent],
   imports: [
     HttpClientModule,
@@ -43,7 +47,7 @@ export class AppComponent {}
             component: ProjectBoardComponent,
           },
           {
-            path: 'item',
+            path: 'issue/:id',
             component: TodoItemComponent,
           },
         ],
