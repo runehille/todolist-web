@@ -58,7 +58,6 @@ import { TodoItem } from 'src/app/shared/interfaces/todoitem.interface';
                 formControlName="issuetype"
               >
                 <option value="task">Task</option>
-                <option value="story">Story</option>
                 <option value="bug">Bug</option>
               </select>
             </div>
@@ -146,6 +145,7 @@ export class CreateModalComponent {
         title: this.issueForm.get('title')?.value,
         description: this.issueForm.get('description')?.value,
         priority: this.issueForm.get('priority')?.value,
+        type: this.issueForm.get('issuetype')?.value,
         createdBy: this.issueForm.get('createdBy')?.value,
         assignedTo: this.issueForm.get('assignedTo')?.value,
         status: 'todo',
