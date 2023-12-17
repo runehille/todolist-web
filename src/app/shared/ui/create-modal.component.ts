@@ -148,6 +148,9 @@ export class CreateModalComponent {
         priority: this.issueForm.get('priority')?.value,
         createdBy: this.issueForm.get('createdBy')?.value,
         assignedTo: this.issueForm.get('assignedTo')?.value,
+        status: 'todo',
+        createdTimeStamp: '',
+        lastModifiedTimeStamp: '',
       };
 
       this.createitemService.createItem(todoItem);

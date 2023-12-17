@@ -4,4 +4,7 @@ export interface TodoItem {
   priority: string;
   createdBy: string;
   assignedTo: string;
+  status: string;
+  createdTimeStamp: string;
+  lastModifiedTimeStamp: string;
 }

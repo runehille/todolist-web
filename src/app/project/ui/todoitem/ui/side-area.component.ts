@@ -38,6 +38,16 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
           </div>
         </div>
       </div>
+      <div class="flex flex-col text-sm">
+        <div class="flex">
+          <p class="w-1/5">Created</p>
+          <p>{{ createdTimeStamp }}</p>
+        </div>
+        <div class="flex">
+          <p class="w-1/5">Last modified</p>
+          <p>{{ lastModifiedTimeStamp }}</p>
+        </div>
+      </div>
     </div>
   `,
   styles: [''],
@@ -47,8 +57,22 @@ export class TodoitemSideAreaComponent {
   assignee: string = 'Unassigned';
   reporter: string = 'Reporter';
   priority: string = 'Low';
-  labels: string = '';
   status: string = 'todo';
+  labels: string = '';
+  createdTimeStamp: string =
+    new Date('2022-12-15').toLocaleDateString() +
+    ' ' +
+    new Date().toLocaleTimeString('no-NO', {
+      hour: '2-digit',
+      minute: '2-digit',
+    });
+  lastModifiedTimeStamp: string =
+    new Date('2022-12-15').toLocaleDateString() +
+    ' ' +
+    new Date().toLocaleTimeString('no-NO', {
+      hour: '2-digit',
+      minute: '2-digit',
+    });
 }
 
 @NgModule({
