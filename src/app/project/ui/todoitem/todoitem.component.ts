@@ -29,10 +29,10 @@ import { Location } from '@angular/common';
           </button>
 
           <div
-            *ngIf="menuOpen"
+            *ngIf="menuOpen && !deleteModalShow"
             class="absolute right-0 z-10  px-4 py-2 origin-top-right rounded-md shadow-lg items-start bg-white"
           >
-            <button (click)="deleteIssue()">Delete</button>
+            <button (click)="showDeleteModal()">Delete</button>
           </div>
         </div>
       </div>
@@ -49,19 +49,60 @@ import { Location } from '@angular/common';
         </div>
       </div>
     </div>
+
+    <div
+      *ngIf="deleteModalShow"
+      class="fixed inset-0 bg-slate-600 bg-opacity-50 overflow-y-auto h-full w-full"
+    >
+      <div class="flex items-center justify-center h-screen">
+        <div
+          class="relative mx-auto p-5 border w-1/6 shadow-lg rounded-md bg-white"
+        >
+          <div class="">
+            <div class="flex justify-between">
+              <h3 class="text-lg font-medium">
+                Are you sure you want to delete this issue?
+              </h3>
+            </div>
+            <form class="space-y-8 mt-4">
+              <div class="flex px-4 py-3 justify-end">
+                <button
+                  type="button"
+                  (click)="hideDeleteModal()"
+                  class="px-4 py-2 bg-transparent font-medium hover:cursor-pointer"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="button"
+                  (click)="deleteIssue()"
+                  class="px-4 py-1 bg-red-600 text-white rounded-md shadow-sm hover:bg-red-700 hover:cursor-pointer"
+                >
+                  Delete
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
   `,
   styles: [''],
 })
 export class TodoItemComponent {
   issue: Observable<TodoItem> = new Observable();
   id: string;
-  menuOpen: boolean = false;
+  menuOpen: boolean;
+  deleteModalShow: boolean;
 
   constructor(
     private route: ActivatedRoute,
     private dataService: PollingService,
     private location: Location
   ) {
+    this.menuOpen = false;
+    this.deleteModalShow = false;
+
     this.id = this.route.snapshot.paramMap.get('id')!;
 
     try {
@@ -81,6 +122,15 @@ export class TodoItemComponent {
         })
       )
       .subscribe();
+  }
+
+  showDeleteModal() {
+    this.toggleMenu();
+    this.deleteModalShow = true;
+  }
+
+  hideDeleteModal() {
+    this.deleteModalShow = false;
   }
 
   toggleMenu() {
