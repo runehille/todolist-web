@@ -19,4 +19,11 @@ export class PollingService {
         id
     );
   }
+
+  deleteIssue(id: string): Observable<any> {
+    return this.http.delete(
+      'https://todolistapi20230406231150.azurewebsites.net/todoitems/delete/' +
+        id
+    );
+  }
 }

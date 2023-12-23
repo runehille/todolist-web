@@ -16,16 +16,18 @@ import { TodoItem } from 'src/app/shared/interfaces/todoitem.interface';
       class="flex flex-col h-96 border-slate-200 space-y-4"
       *ngIf="issue | async as issueData"
     >
-      <select
-        name="status"
-        id="status"
-        formControlName="status"
-        class="bg-blue-600 text-white w-fit p-1 rounded-md hover:cursor-pointer"
-      >
-        <option value="todo">To Do</option>
-        <option value="inprogress">In Progress</option>
-        <option value="done">Done</option>
-      </select>
+      <div class="flex justify-between">
+        <select
+          name="status"
+          id="status"
+          formControlName="status"
+          class="bg-blue-600 text-white w-fit p-1 rounded-md hover:cursor-pointer"
+        >
+          <option value="todo">To Do</option>
+          <option value="inprogress">In Progress</option>
+          <option value="done">Done</option>
+        </select>
+      </div>
 
       <div class="flex flex-col border-2 p-4 border-slate-100 space-y-4">
         <h2 class="text-lg font-medium border-b-2 border-slate-100 pb-2">
