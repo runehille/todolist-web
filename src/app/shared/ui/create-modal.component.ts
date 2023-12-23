@@ -1,5 +1,4 @@
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
 import { Component, EventEmitter, NgModule, Output } from '@angular/core';
 import {
   FormBuilder,
@@ -7,8 +6,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { firstValueFrom } from 'rxjs';
-import { CreateItemService } from 'src/app/shared/data-access/create-item.service';
+import { IssueService } from 'src/app/shared/data-access/issue.service';
 import { TodoItem } from 'src/app/shared/interfaces/todoitem.interface';
 
 @Component({
@@ -117,7 +115,7 @@ export class CreateModalComponent {
 
   constructor(
     private formBuilder: FormBuilder,
-    private createitemService: CreateItemService
+    private issueService: IssueService
   ) {
     this.issueForm = this.formBuilder.group({
       project: ['frontend', Validators.required],
@@ -153,7 +151,7 @@ export class CreateModalComponent {
         lastModifiedTimestamp: '',
       };
 
-      this.createitemService.createItem(todoItem);
+      this.issueService.createItem(todoItem);
       this.close();
     }
   };

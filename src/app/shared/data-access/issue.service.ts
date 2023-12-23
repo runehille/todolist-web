@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, timer } from 'rxjs';
+import { Observable, firstValueFrom, timer } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
+import { TodoItem } from 'src/app/shared/interfaces/todoitem.interface';
 
 @Injectable({
   providedIn: 'root',
 })
-export class PollingService {
+export class IssueService {
   constructor(private http: HttpClient) {}
 
   pollEndpoint(url: string, pollInterval: number): Observable<any> {
@@ -18,6 +19,19 @@ export class PollingService {
       'https://todolistapi20230406231150.azurewebsites.net/todoitems/details/' +
         id
     );
+  }
+
+  public async createItem(todoItem: TodoItem) {
+    try {
+      await firstValueFrom(
+        this.http.post(
+          'https://todolistapi20230406231150.azurewebsites.net/todoitems/create',
+          todoItem
+        )
+      );
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   deleteIssue(id: string): Observable<any> {

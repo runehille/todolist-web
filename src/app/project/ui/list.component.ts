@@ -3,8 +3,8 @@ import { Component, NgModule, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { PollingService } from 'src/app/shared/data-access/polling.service';
 import { Router } from '@angular/router';
+import { IssueService } from 'src/app/shared/data-access/issue.service';
 
 @Component({
   selector: 'app-project-list',
@@ -84,8 +84,8 @@ export class ProjectListComponent {
 
   todoitems$: Observable<any>;
 
-  constructor(private pollingService: PollingService, private router: Router) {
-    this.todoitems$ = this.pollingService.pollEndpoint(
+  constructor(private issueService: IssueService, private router: Router) {
+    this.todoitems$ = this.issueService.pollEndpoint(
       'https://todolistapi20230406231150.azurewebsites.net/todoitems',
       5000
     );

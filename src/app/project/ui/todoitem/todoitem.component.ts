@@ -5,9 +5,9 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable, first, tap } from 'rxjs';
 import { TodoitemMainAreaModule } from 'src/app/project/ui/todoitem/ui/main-area.component';
 import { TodoitemSideAreaModule } from 'src/app/project/ui/todoitem/ui/side-area.component';
-import { PollingService } from 'src/app/shared/data-access/polling.service';
 import { TodoItem } from 'src/app/shared/interfaces/todoitem.interface';
 import { Location } from '@angular/common';
+import { IssueService } from 'src/app/shared/data-access/issue.service';
 
 @Component({
   selector: 'app-todoitem',
@@ -97,7 +97,7 @@ export class TodoItemComponent {
 
   constructor(
     private route: ActivatedRoute,
-    private dataService: PollingService,
+    private issueService: IssueService,
     private location: Location
   ) {
     this.menuOpen = false;
@@ -106,14 +106,14 @@ export class TodoItemComponent {
     this.id = this.route.snapshot.paramMap.get('id')!;
 
     try {
-      this.issue = this.dataService.getIssueById(this.id);
+      this.issue = this.issueService.getIssueById(this.id);
     } catch (error) {
       console.log(error);
     }
   }
 
   deleteIssue() {
-    this.dataService
+    this.issueService
       .deleteIssue(this.id)
       .pipe(
         first(),
