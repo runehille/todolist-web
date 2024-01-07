@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { IssueService } from 'src/app/shared/data-access/issue.service';
+import { endpoints } from 'src/app/shared/data-access/endpoints';
 
 @Component({
   selector: 'app-project-list',
@@ -85,10 +86,7 @@ export class ProjectListComponent {
   todoitems$: Observable<any>;
 
   constructor(private issueService: IssueService, private router: Router) {
-    this.todoitems$ = this.issueService.pollEndpoint(
-      'https://todolistapi20230406231150.azurewebsites.net/todoitems',
-      5000
-    );
+    this.todoitems$ = this.issueService.pollEndpoint();
   }
 
   navigateToDetails(id: string) {

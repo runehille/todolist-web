@@ -121,7 +121,7 @@ export class CreateModalComponent {
       project: ['frontend', Validators.required],
       issuetype: ['task', Validators.required],
       title: ['', Validators.required],
-      description: ['', Validators.required],
+      description: [''],
       priority: ['low'],
       createdBy: ['Rune'],
       assignedTo: ['Rune'],
